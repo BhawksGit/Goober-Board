@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Drawing Board</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffc3dc; /* Light pink background */
+            background-image: url('images/hearts-background.svg'); /* Adjust with your image path */
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover; /* Cover the entire body */
+            flex-direction: column;
+        }
+        #titleImage {
+            width: 600px;
+            margin-bottom: 20px;
+        }
+        #drawingBoard {
+            display: grid;
+            grid-template-columns: repeat(16, 40px);
+            grid-template-rows: repeat(16, 40px);
+            border: 3px solid #333;
+        }
+        .pixel {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #ddd;
+        }
+        #controlPanel {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+        }
+        button {
+            border: none;
+            background-color: white;
+            color: black;
+            cursor: pointer;
+            padding: 10px 20px;
+            margin-right: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            outline: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        button svg {
+            height: 20px;
+            width: 20px;
+            fill: white;
+        }
+        #colorPicker {
+            width: 100px;
+            margin-right: 10px;
+        }
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black with opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fff; /* White background */
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 2px solid #ff69b4; /* Pink border */
+            width: 200px; /* Width of the modal */
+            height: 150px; /* Height of the modal */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: adds shadow for better visibility */
+        }
+
+        /* Modal Content Text */
+        .modal-content p {
+            font-size: 28px; /* Adjust font size as needed */
+            color: #333; /* Optional: set text color if desired */
+            margin: 0; /* Remove default margin */
+            padding: 10px; /* Add some padding around the text */
+        }
+
+        /* The OK Button */
+        #okButton {
+            width: 160px;
+            padding: 10px;
+            background-color: #ff69b4; /* Pink background */
+            color: white;
+            border: none;
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        /* Style for the dropdown */
+        #boardSelector {
+            padding: 10px 20px;  /* Match the padding of other buttons */
+            background-color: white; /* Same background color as buttons */
+            color: black; /* Text color to match buttons */
+            border: none;  /* No border */
+            border-radius: 5px; /* Rounded corners like the buttons */
+            cursor: pointer; /* Cursor to pointer to indicate it's clickable */
+            outline: none; /* Remove focus outline */
+            margin-right: 10px; /* Space before the submit button */
+            font-size: 16px; /* Font size to match buttons */
+        }
+
+        /* To remove the default styling from Firefox */
+        select::-moz-focus-inner {
+            border: 0;
+        }
+
+        /* To style the dropdown arrow */
+        #boardSelector {
+            -webkit-appearance: none;  /* Removes default chrome and safari style */
+            -moz-appearance: none; /* Removes default style Firefox */
+            appearance: none; /* Removes default standard style */
+            background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); /* SVG for the dropdown arrow */
+            background-repeat: no-repeat;
+            background-position: right 10px center; /* Positioning the arrow to the right */
+            background-size: 12px; /* Size of the dropdown arrow */
+        }
+
+        /* To ensure the dropdown expands to fit its container if needed */
+        #boardSelector {
+            width: auto; /* Adjust width as needed */
+        }
+
+    </style>
+</head>
+<body>
+    <img id="titleImage" src="images/goober-board.png" alt="Goober Board">
+    <div id="drawingBoard"></div>
+    <div id="controlPanel">
+        <input type="color" id="colorPicker" value="#000000">
+        <select id="boardSelector">
+            <option value="gooberOne.php">Board One</option>
+            <option value="gooberTwo.php">Board Two</option>
+        </select>
+        <button id="clearButton">Clear Board</button>
+        <button id="pencilButton"><i class="fas fa-pencil-alt"></i></button>
+        <button id="eraserButton"><i class="fas fa-eraser"></i></button>
+        <button id="undoButton"><i class="fas fa-undo"></i></button>
+        <button id="redoButton"><i class="fas fa-redo"></i></button>
+        <button id="submitButton">Submit</button>
+    </div>
+
+    </div>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <p>Board Sent! 😊</p>
+            <button id="okButton">OK</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
